@@ -1,22 +1,23 @@
-// dogs api:
-// pics = https://dog.ceo/dog-api/documentation/
-// facts = https://dogapi.dog/docs/api-v2
+// * dogs api:
+// * pics = https://dog.ceo/dog-api/documentation/
+// * facts = https://dogapi.dog/docs/api-v2
 
-import { Card, CardHeader, Container } from "reactstrap";
+import { Card, CardBody, CardHeader } from "reactstrap";
+import styles from "./App.module.css";
 import dogsBg from "./assets/dogsBg.jpg";
+import Main from "./components/Main";
 
 function App() {
   return (
-    <div style={{ backgroundImage: dogsBg }}>
-      {/* <div> */}
-      <Card>
-        <h1>DOGS!</h1>
-        <h2>We love them, we care about them</h2>
-        <em>
-          Unless you are from The Cat Camp. Then you are forgiven (for your lack
-          of taste).
-        </em>
-      </Card>
+    <div style={{ height: "100vh", overflow: "hidden", position: "relative" }}>
+      <img
+        src={dogsBg}
+        alt="background of cartoon dogs"
+        className={styles.backgroundImg}
+      />
+      <div style={{ position: "relative" }}>
+        <Main />
+      </div>
     </div>
   );
 }
