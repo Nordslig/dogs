@@ -6,6 +6,8 @@ import { Card, CardBody, CardHeader } from "reactstrap";
 import styles from "./App.module.css";
 import dogsBg from "./assets/dogsBg.jpg";
 import Main from "./components/Main";
+import Info from "./components/Info";
+import Form from "./components/Form";
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
       />
       <div style={{ position: "relative" }}>
         <Main />
+        <Form />
       </div>
+      <Info />
     </div>
   );
 }
