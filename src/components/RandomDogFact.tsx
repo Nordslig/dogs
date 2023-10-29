@@ -1,32 +1,40 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Card } from "reactstrap";
 
 const RandomDogFact = () => {
-  const [dogFactData, setDogFactData] = useState<{
-    id: string;
-    type: "fact" | string;
-    attributes: { body: string };
-  } | null>(null);
+  const [dogFactData, setDogFactData] = useState<string | undefined>("");
 
-  // TODO COOKIES
-  // const today = new Date();
-  //  console.log(today.getMonth() + 1, today.getDate(), today.getFullYear());
-  // TODO
+  const [cookies, setCookie] = useCookies(["dogFact"]);
 
-  const newFact = async () => {
-    const res = await axios.get("https://dogapi.dog/api/v2/facts");
-    setDogFactData(res.data.data[0]);
-  };
+  const current = new Date();
+  const nextDay = new Date(
+    current.getFullYear(),
+    current.getMonth(),
+    current.getDate() + 1,
+    0,
+    0,
+    0
+  );
+  const timeToNextDay = (nextDay.getTime() - current.getTime()) / 1000;
 
   useEffect(() => {
+    const newFact = async () => {
+      const res = await axios.get("https://dogapi.dog/api/v2/facts");
+      setCookie("dogFact", res.data.data[0].attributes.body, {
+        maxAge: timeToNextDay,
+      });
+      setDogFactData(res.data.data[0].attributes.body);
+    };
+    if (cookies.dogFact) return setDogFactData(cookies.dogFact);
     newFact();
-  }, []);
+  }, [setCookie, timeToNextDay, cookies]);
 
   return (
     <Card>
-      <h3>Your fact of the day: </h3>
-      <p>{dogFactData?.attributes.body}</p>
+      <h3>Your fact of the day:</h3>
+      <p>{dogFactData}</p>
     </Card>
   );
 };
