@@ -1,6 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Card,
+  FormGroup,
+  List,
+  ListGroupItem,
+  ListGroupItemText,
+  ListInlineItem,
+} from "reactstrap";
 
 // * dogs api:
 // * pics = https://dog.ceo/dog-api/documentation/
@@ -8,7 +16,7 @@ import { Button } from "reactstrap";
 
 const Form = () => {
   const [dogImage, setDogImage] = useState<"" | undefined>("");
-  const [groups, setGroups] = useState<string[]>([]);
+  const [groups, setGroups] = useState<{ id: string; name: string }[]>([]);
   const [breedsList, setBreedsList] = useState<string[]>([]);
 
   const breedsNames: string[] = [];
@@ -23,16 +31,17 @@ const Form = () => {
         groups.push(breedId.id);
       }
     );
-    setGroups(groups);
+    // setGroups(groups);
     // groups.splice(0, groups.length);
   };
 
   useEffect(() => {
-    getGroups(1);
+    // getGroups(1);
   }, []);
 
   useEffect(() => {
     const getBreeds = async () => {
+      setBreedsList([]);
       for (let i = 0; i < groups.length; i++) {
         const getBreeds = await axios.get(
           `https://dogapi.dog/api/v2/breeds/${groups[i]}`
@@ -43,7 +52,7 @@ const Form = () => {
         ]);
       }
     };
-    getBreeds();
+    // getBreeds();
   }, [groups]);
 
   useEffect(() => {
@@ -91,18 +100,48 @@ const Form = () => {
     // getBreeds();
   }, []);
 
+  const fetchGroups = async () => {
+    const response = await axios.get(`https://dogapi.dog/api/v2/groups`);
+
+    setGroups(
+      response.data.data.map((group: any) => ({
+        id: group.id,
+        name: group.attributes.name,
+      }))
+    );
+  };
+
+  useEffect(() => {
+    fetchGroups();
+  }, []);
+
+  const fetchBreeds = async (id: string) => {
+    const response = await axios.get(`https://dogapi.dog/api/v2/groups/${id}`);
+
+    console.log(response.data.data.relationships.breeds.data);
+
+    // TODO display list of breeds, then after picking one out, look for informations and pic
+  };
+
   return (
-    <>
-      <p>{breedsList}</p>
-      <form>
+    <Card>
+      <FormGroup>
         <label htmlFor="dogBreed">Dog breed: </label>
-        <Button onClick={() => getGroups(1)}>1st Group</Button>
-        <Button onClick={() => getGroups(2)}>2nd Group</Button>
-        {/* <Button onClick={getBreeds}>PUG</Button> */}
+        {groups.length > 0 && (
+          <List>
+            {groups.map(({ id, name }) => (
+              <ListInlineItem key={id}>
+                <Button onClick={() => fetchBreeds(id)}>{name}</Button>
+              </ListInlineItem>
+            ))}
+          </List>
+        )}
+        {/* <Button onClick={() => getGroups(1)}>1st Group</Button> */}
+        {/* <Button onClick={() => getGroups(2)}>2nd Group</Button> */}
         {/* <Button>Search for dog</Button> */}
-      </form>
+      </FormGroup>
       <img src={dogImage} />
-    </>
+    </Card>
   );
 };
 
