@@ -118,9 +118,26 @@ const Form = () => {
   const fetchBreeds = async (id: string) => {
     const response = await axios.get(`https://dogapi.dog/api/v2/groups/${id}`);
 
-    console.log(response.data.data.relationships.breeds.data);
-
     // TODO display list of breeds, then after picking one out, look for informations and pic
+
+    const breeds = response.data.data.relationships.breeds.data;
+
+    for (let i = 0; i < breeds.length; i++) {
+      const breed = breeds[i];
+
+      const res = await axios.get(
+        `https://dogapi.dog/api/v2/breeds/${breed.id}`
+      );
+
+      setBreedsList((prevState) => [
+        ...prevState,
+        res.data.data.attributes.name,
+      ]);
+    }
+
+    console.log(breedsList);
+
+    // setBreedsList(response.data.data.relationships.breeds.data)
   };
 
   return (
@@ -134,13 +151,12 @@ const Form = () => {
                 <Button onClick={() => fetchBreeds(id)}>{name}</Button>
               </ListInlineItem>
             ))}
+            <FormGroup>
+              {/* {breedsList.map(({})=>(<ListInlineItem></ListInlineItem>))} */}
+            </FormGroup>
           </List>
         )}
-        {/* <Button onClick={() => getGroups(1)}>1st Group</Button> */}
-        {/* <Button onClick={() => getGroups(2)}>2nd Group</Button> */}
-        {/* <Button>Search for dog</Button> */}
       </FormGroup>
-      <img src={dogImage} />
     </Card>
   );
 };
