@@ -4,9 +4,9 @@ import {
   Button,
   Card,
   FormGroup,
+  Input,
+  Label,
   List,
-  ListGroupItem,
-  ListGroupItemText,
   ListInlineItem,
 } from "reactstrap";
 
@@ -120,6 +120,8 @@ const Form = () => {
 
     // TODO display list of breeds, then after picking one out, look for informations and pic
 
+    setBreedsList([]);
+
     const breeds = response.data.data.relationships.breeds.data;
 
     for (let i = 0; i < breeds.length; i++) {
@@ -135,11 +137,13 @@ const Form = () => {
       ]);
     }
 
-    console.log(breedsList);
-
     // setBreedsList(response.data.data.relationships.breeds.data)
   };
+  // console.log(breedsList);
 
+  // TODO ----- => chosen group \/
+
+  // TODO improve displaying options
   return (
     <Card>
       <FormGroup>
@@ -151,12 +155,21 @@ const Form = () => {
                 <Button onClick={() => fetchBreeds(id)}>{name}</Button>
               </ListInlineItem>
             ))}
-            <FormGroup>
-              {/* {breedsList.map(({})=>(<ListInlineItem></ListInlineItem>))} */}
-            </FormGroup>
           </List>
         )}
       </FormGroup>
+      {breedsList.length > 0 && (
+        <FormGroup>
+          <FormGroup>
+            <Label for="selectBreed">Select breed from ----- group</Label>
+            <Input type="select" id="selectBreed">
+              {breedsList.map((breed) => (
+                <option key={breed}>{breed}</option>
+              ))}
+            </Input>
+          </FormGroup>
+        </FormGroup>
+      )}
     </Card>
   );
 };
