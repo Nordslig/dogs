@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
   ListInlineItem,
   Spinner,
 } from "reactstrap";
+import FoundDog from "./FoundDog";
 
 // * dogs api:
 // * pics = https://dog.ceo/dog-api/documentation/
@@ -21,9 +22,24 @@ const Form = () => {
 
   const [breedsList, setBreedsList] = useState<string[]>([]);
 
-  const [dogImage, setDogImage] = useState<"" | undefined>("");
+  const [dogInfo, setDogImage] = useState<{
+    name: string;
+    desc: string;
+    image?: string;
+    lifeExpectancy: number;
+    avgMaleWeight: number;
+    avgFemaleWeight: number;
+  } | null>({
+    name: "",
+    desc: "",
+    lifeExpectancy: 0,
+    avgFemaleWeight: 0,
+    avgMaleWeight: 0,
+  });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const breedRef = useRef<string | null>("");
 
   const fetchGroups = async () => {
     const response = await axios.get(`https://dogapi.dog/api/v2/groups`);
@@ -61,41 +77,57 @@ const Form = () => {
 
       breedsListTemp.push(res.data.data.attributes.name);
     }
+
+    breedsListTemp.sort();
     setIsLoading(false);
     setBreedsList(breedsListTemp);
   };
 
+  const fetchDog = async () => {
+    const res = await axios.get(
+      `https://dog.ceo/api/breed/hound/afghan/images/random`
+    );
+
+    // console.log(res);
+    // setDogImage({name:})
+  };
+
   return (
-    <Card>
-      <FormGroup>
-        <label htmlFor="dogBreed">Dog breed: </label>
-        {groups.length === 0 && <Spinner />}
-        {groups.length > 0 && (
-          <List>
-            {groups.map(({ id, name }) => (
-              <ListInlineItem key={id}>
-                <Button onClick={() => fetchBreeds(id)}>{name}</Button>
-              </ListInlineItem>
-            ))}
-          </List>
-        )}
-      </FormGroup>
-      {isLoading && <Spinner />}
-      {breedsList.length > 0 && (
+    <>
+      <Card>
         <FormGroup>
-          <FormGroup>
-            <Label for="selectBreed">
-              Select breed from {chosenGroup} group
-            </Label>
-            <Input type="select" id="selectBreed">
-              {breedsList.map((breed) => (
-                <option key={breed}>{breed}</option>
+          <label htmlFor="dogBreed">Dog breed: </label>
+          {groups.length === 0 && <Spinner />}
+          {groups.length > 0 && (
+            <List>
+              {groups.map(({ id, name }) => (
+                <ListInlineItem key={id}>
+                  <Button onClick={() => fetchBreeds(id)}>{name}</Button>
+                </ListInlineItem>
               ))}
-            </Input>
-          </FormGroup>
+            </List>
+          )}
         </FormGroup>
-      )}
-    </Card>
+        {isLoading && <Spinner />}
+        {breedsList.length > 0 && (
+          <FormGroup>
+            <FormGroup>
+              <Label for="selectBreed">
+                Select breed from {chosenGroup} group
+              </Label>
+              <Input type="select" id="selectBreed">
+                <option defaultChecked>-</option>
+                {breedsList.map((breed) => (
+                  <option key={breed}>{breed}</option>
+                ))}
+              </Input>
+              <Button onClick={fetchDog}>Find dog!</Button>
+            </FormGroup>
+          </FormGroup>
+        )}
+      </Card>
+      {dogInfo?.name && <FoundDog />}
+    </>
   );
 };
 
