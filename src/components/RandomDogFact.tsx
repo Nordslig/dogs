@@ -24,6 +24,7 @@ const RandomDogFact = () => {
       const res = await axios.get("https://dogapi.dog/api/v2/facts");
       setCookie("dogFact", res.data.data[0].attributes.body, {
         maxAge: timeToNextDay,
+        sameSite: "strict",
       });
       setDogFactData(res.data.data[0].attributes.body);
     };
@@ -40,3 +41,6 @@ const RandomDogFact = () => {
 };
 
 export default RandomDogFact;
+
+// ! Check 30/10/23 fact
+//  * At the age of 4 weeks, most dogs have developed the majority of their vocalizations.

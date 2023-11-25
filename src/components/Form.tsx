@@ -22,7 +22,7 @@ const Form = () => {
 
   const [breedsList, setBreedsList] = useState<string[]>([]);
 
-  const [dogInfo, setDogImage] = useState<{
+  const [dogInfo, setDogInfo] = useState<{
     name: string;
     desc: string;
     image?: string;
@@ -39,7 +39,7 @@ const Form = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const breedRef = useRef<string | null>("");
+  // const breedRef = useRef<HTMLOptionElement | null>(null);
 
   const fetchGroups = async () => {
     const response = await axios.get(`https://dogapi.dog/api/v2/groups`);
@@ -74,9 +74,9 @@ const Form = () => {
       const res = await axios.get(
         `https://dogapi.dog/api/v2/breeds/${breed.id}`
       );
-
       breedsListTemp.push(res.data.data.attributes.name);
     }
+    console.log(breedsListTemp[0].trim().split(/\s+/).length);
 
     breedsListTemp.sort();
     setIsLoading(false);
@@ -84,11 +84,17 @@ const Form = () => {
   };
 
   const fetchDog = async () => {
-    const res = await axios.get(
-      `https://dog.ceo/api/breed/hound/afghan/images/random`
-    );
+    {
+      /*
+  
+  const res = await axios.get(
+  `https://dog.ceo/api/breed/hound/afghan/images/random`
+  );
+  */
+    }
 
-    // console.log(res);
+    console.log(dogInfo?.name);
+
     // setDogImage({name:})
   };
 
@@ -118,7 +124,14 @@ const Form = () => {
               <Input type="select" id="selectBreed">
                 <option defaultChecked>-</option>
                 {breedsList.map((breed) => (
-                  <option key={breed}>{breed}</option>
+                  <option
+                    key={breed}
+                    onClick={() => {
+                      // setDogInfo({ ...dogInfo. name:breed });
+                    }}
+                  >
+                    {breed}
+                  </option>
                 ))}
               </Input>
               <Button onClick={fetchDog}>Find dog!</Button>
