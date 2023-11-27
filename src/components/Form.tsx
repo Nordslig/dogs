@@ -20,22 +20,22 @@ const Form = () => {
   const [groups, setGroups] = useState<{ id: string; name: string }[]>([]);
   const [chosenGroup, setChosenGroup] = useState<string | null>(null);
 
-  const [breedsList, setBreedsList] = useState<string[]>([]);
+  const [breedsList, setBreedsList] = useState<
+    {
+      id: string;
+      name: string;
+      desc: string;
+      avgLifeExpectancy: number;
+    }[]
+  >([]);
 
   const [dogInfo, setDogInfo] = useState<{
-    name: string;
-    desc: string;
+    id: string;
+    name?: string;
+    desc?: string;
+    avgLifeExpectancy?: number;
     image?: string | false;
-    lifeExpectancy: number;
-    avgMaleWeight: number;
-    avgFemaleWeight: number;
-  } | null>({
-    name: "",
-    desc: "",
-    lifeExpectancy: 0,
-    avgFemaleWeight: 0,
-    avgMaleWeight: 0,
-  });
+  } | null>({ id: "" });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -64,16 +64,26 @@ const Form = () => {
     setBreedsList([]);
     setIsLoading(true);
     setDogInfo({
-      name: "",
-      desc: "",
-      lifeExpectancy: 0,
-      avgFemaleWeight: 0,
-      avgMaleWeight: 0,
+      id: "",
     });
 
     const breeds = response.data.data.relationships.breeds.data;
 
-    const breedsListTemp: string[] = [];
+    const breedsListTemp: [
+      {
+        id: string;
+        name: string;
+        desc: string;
+        avgLifeExpectancy: number;
+      }
+    ] = [
+      {
+        id: "",
+        name: "",
+        desc: "",
+        avgLifeExpectancy: 0,
+      },
+    ];
 
     for (let i = 0; i < breeds.length; i++) {
       const breed = breeds[i];
@@ -81,36 +91,64 @@ const Form = () => {
       const res = await axios.get(
         `https://dogapi.dog/api/v2/breeds/${breed.id}`
       );
-      breedsListTemp.push(res.data.data.attributes.name);
-    }
-    // console.log(breedsListTemp[0].trim().split(/\s+/).length);
 
-    breedsListTemp.sort();
+      const data = res.data.data;
+
+      // ! life: {min, max}
+      // ! male_weight: {min,max}
+      // ! female_weight: {min,max}
+
+      // TODO add avg life, male/female weight, display it nicely
+
+      breedsListTemp.push({
+        id: data.id,
+        name: data.attributes.name,
+        desc: data.attributes.description,
+        avgLifeExpectancy:
+          (data.attributes.min_life + data.attributes.max_life) / 2,
+      });
+    }
+
+    breedsListTemp.sort((a, b) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
+
     setIsLoading(false);
     setBreedsList(breedsListTemp);
   };
 
   const fetchDog = async () => {
-    if (!dogInfo) {
-      return console.log("Something went wrong...");
-    }
+    // const res = await axios.get(
+    // `https://dogapi.dog/api/v2/breeds`
+    // );
 
-    const { name } = dogInfo;
-    const names = name.trim().split(/\s+/);
+    const currentDog = breedsList.find((breed) => breed.id === dogInfo?.id);
 
-    console.log(names);
+    if (!currentDog) return console.log("Something is wrong...");
+
+    const names = currentDog.name.trim().split(/\s+/);
 
     let dogImage: string = "";
 
     if (names.length === 1) {
       try {
         const res = await axios.get(
-          `https://dog.ceo/api/breed/${name.toLowerCase()}/images/random`
+          `https://dog.ceo/api/breed/${currentDog.name.toLowerCase()}/images/random`
         );
 
         dogImage = res.data.message;
       } catch (error) {
-        return setDogInfo({ ...dogInfo, image: false });
+        return setDogInfo({ ...currentDog, image: false });
       }
     } else if (names.length === 2) {
       try {
@@ -120,12 +158,14 @@ const Form = () => {
 
         dogImage = res.data.message;
       } catch (error: any) {
-        return setDogInfo({ ...dogInfo, image: false });
+        return setDogInfo({ ...currentDog, image: false });
       }
-    } else return setDogInfo({ ...dogInfo, image: false });
+    } else return setDogInfo({ ...currentDog, image: false });
 
-    setDogInfo({ ...dogInfo, image: dogImage });
+    setDogInfo({ ...currentDog, image: dogImage });
   };
+
+  console.log(dogInfo);
 
   return (
     <>
@@ -154,12 +194,12 @@ const Form = () => {
                 <option defaultChecked>-</option>
                 {breedsList.map((breed) => (
                   <option
-                    key={breed}
+                    key={breed.id}
                     onClick={() => {
-                      setDogInfo({ ...dogInfo!, name: breed });
+                      setDogInfo({ id: breed.id });
                     }}
                   >
-                    {breed}
+                    {breed.name}
                   </option>
                 ))}
               </Input>
@@ -171,8 +211,8 @@ const Form = () => {
       {dogInfo?.image && <img src={dogInfo.image} />}
       {dogInfo?.image === false && (
         <p>
-          Sorry, there aren't any pictures of {dogInfo.name}. If you own one,
-          you can send image{" "}
+          Sorry, there aren't any pictures of +++++. If you own one, you can
+          send image{" "}
           <a href="https://github.com/jigsawpieces/dog-api-images#dog-api-images">
             here
           </a>{" "}
