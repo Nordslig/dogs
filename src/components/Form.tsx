@@ -10,7 +10,7 @@ import {
   ListInlineItem,
   Spinner,
 } from "reactstrap";
-import FoundDog from "./FoundDog";
+import RandomDog from "./RandomDog";
 
 // * dogs api:
 // * pics = https://dog.ceo/dog-api/documentation/
@@ -34,6 +34,8 @@ const Form = () => {
     name?: string;
     desc?: string;
     avgLifeExpectancy?: number;
+    avgMaleWeight?: number;
+    avgFemaleWeight?: number;
     image?: string | false;
   } | null>({ id: "" });
 
@@ -75,6 +77,8 @@ const Form = () => {
         name: string;
         desc: string;
         avgLifeExpectancy: number;
+        avgMaleWeight: number;
+        avgFemaleWeight: number;
       }
     ] = [
       {
@@ -82,6 +86,8 @@ const Form = () => {
         name: "",
         desc: "",
         avgLifeExpectancy: 0,
+        avgFemaleWeight: 0,
+        avgMaleWeight: 0,
       },
     ];
 
@@ -105,7 +111,14 @@ const Form = () => {
         name: data.attributes.name,
         desc: data.attributes.description,
         avgLifeExpectancy:
-          (data.attributes.min_life + data.attributes.max_life) / 2,
+          (data.attributes.life.min + data.attributes.life.max) / 2,
+        avgFemaleWeight:
+          (data.attributes.female_weight.min +
+            data.attributes.female_weight.max) /
+          2,
+        avgMaleWeight:
+          (data.attributes.male_weight.min + data.attributes.male_weight.max) /
+          2,
       });
     }
 
@@ -128,10 +141,6 @@ const Form = () => {
   };
 
   const fetchDog = async () => {
-    // const res = await axios.get(
-    // `https://dogapi.dog/api/v2/breeds`
-    // );
-
     const currentDog = breedsList.find((breed) => breed.id === dogInfo?.id);
 
     if (!currentDog) return console.log("Something is wrong...");
@@ -164,8 +173,6 @@ const Form = () => {
 
     setDogInfo({ ...currentDog, image: dogImage });
   };
-
-  console.log(dogInfo);
 
   return (
     <>
@@ -208,15 +215,17 @@ const Form = () => {
           </FormGroup>
         )}
       </Card>
-      {dogInfo?.image && <img src={dogInfo.image} />}
-      {dogInfo?.image === false && (
-        <p>
-          Sorry, there aren't any pictures of +++++. If you own one, you can
-          send image{" "}
-          <a href="https://github.com/jigsawpieces/dog-api-images#dog-api-images">
-            here
-          </a>{" "}
-        </p>
+      {dogInfo?.name && (
+        <RandomDog
+          info={{
+            name: dogInfo.name,
+            life: dogInfo.avgLifeExpectancy!,
+            mWeight: dogInfo.avgMaleWeight!,
+            fWeight: dogInfo.avgFemaleWeight!,
+            image: dogInfo.image!,
+            description: dogInfo.desc!,
+          }}
+        />
       )}
     </>
   );
