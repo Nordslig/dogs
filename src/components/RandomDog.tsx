@@ -36,7 +36,10 @@ const RandomDog = ({ info }: RandomDogProps) => {
           <p>
             Sorry, there aren't any pictures of {name}. If you own one, you can
             send image{" "}
-            <a href="https://github.com/jigsawpieces/dog-api-images#dog-api-images">
+            <a
+              target="_blank"
+              href="https://github.com/jigsawpieces/dog-api-images#dog-api-images"
+            >
               here
             </a>{" "}
           </p>

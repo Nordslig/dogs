@@ -4,7 +4,6 @@
 
 // ! remove module.css
 
-import { Card, CardBody, CardHeader } from "reactstrap";
 import styles from "./App.module.css";
 import dogsBg from "./assets/dogsBg.jpg";
 import Main from "./components/Main";
@@ -14,7 +13,14 @@ import RandomDogFact from "./components/RandomDogFact";
 
 function App() {
   return (
-    <div style={{ height: "100vh", overflow: "hidden", position: "relative" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        position: "relative",
+      }}
+    >
       <img
         src={dogsBg}
         alt="background of cartoon dogs"

@@ -61,7 +61,6 @@ const Form = () => {
   const fetchBreeds = async (id: string) => {
     const response = await axios.get(`https://dogapi.dog/api/v2/groups/${id}`);
 
-    // TODO display list of breeds, then after picking one out, look for informations and pic
     setChosenGroup(response.data.data.attributes.name);
     setBreedsList([]);
     setIsLoading(true);
@@ -71,25 +70,18 @@ const Form = () => {
 
     const breeds = response.data.data.relationships.breeds.data;
 
-    const breedsListTemp: [
-      {
-        id: string;
-        name: string;
-        desc: string;
-        avgLifeExpectancy: number;
-        avgMaleWeight: number;
-        avgFemaleWeight: number;
-      }
-    ] = [
-      {
-        id: "",
-        name: "",
-        desc: "",
-        avgLifeExpectancy: 0,
-        avgFemaleWeight: 0,
-        avgMaleWeight: 0,
-      },
-    ];
+    const breedsListTemp:
+      | [
+          {
+            id: string;
+            name: string;
+            desc: string;
+            avgLifeExpectancy: number;
+            avgMaleWeight: number;
+            avgFemaleWeight: number;
+          }
+        ]
+      | any[] = [];
 
     for (let i = 0; i < breeds.length; i++) {
       const breed = breeds[i];
@@ -100,11 +92,7 @@ const Form = () => {
 
       const data = res.data.data;
 
-      // ! life: {min, max}
-      // ! male_weight: {min,max}
-      // ! female_weight: {min,max}
-
-      // TODO add avg life, male/female weight, display it nicely
+      // TODO display info nicely
 
       breedsListTemp.push({
         id: data.id,
@@ -173,6 +161,7 @@ const Form = () => {
 
     setDogInfo({ ...currentDog, image: dogImage });
   };
+  console.log(breedsList);
 
   return (
     <>

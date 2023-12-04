@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Card } from "reactstrap";
 
+import styles from "./RandomDogFact.module.css";
+
 const RandomDogFact = () => {
   const [dogFactData, setDogFactData] = useState<string | undefined>("");
 
@@ -33,7 +35,7 @@ const RandomDogFact = () => {
   }, [setCookie, timeToNextDay, cookies]);
 
   return (
-    <Card>
+    <Card style={{ marginTop: ".3rem" }}>
       <h3>Your fact of the day:</h3>
       <p>{dogFactData}</p>
     </Card>
@@ -41,6 +43,3 @@ const RandomDogFact = () => {
 };
 
 export default RandomDogFact;
-
-// ! Check 30/10/23 fact
-//  * At the age of 4 weeks, most dogs have developed the majority of their vocalizations.
