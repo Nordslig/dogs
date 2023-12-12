@@ -1,0 +1,31 @@
+.card {
+  width: 70%;
+}
+
+.card_form__group {
+}
+
+.card_form__label {
+  margin: 1rem 1.4rem;
+  padding: 0.7rem;
+  border-radius: 0.2rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  background-color: #272727;
+  color: rgb(251, 236, 236);
+}
+.card_form__list {
+  list-style: none;
+}
+
+.card_form__list > li {
+  margin: 0.4rem 0;
+}
+
+.spinner {
+  /* width: ; */
+  text-align: center;
+  color: #272727;
+
+  font-size: 1.4rem;
+}

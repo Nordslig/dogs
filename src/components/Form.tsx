@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -12,9 +12,7 @@ import {
 } from "reactstrap";
 import RandomDog from "./RandomDog";
 
-// * dogs api:
-// * pics = https://dog.ceo/dog-api/documentation/
-// * facts = https://dogapi.dog/docs/api-v2
+import styles from "./Form.module.css";
 
 const Form = () => {
   const [groups, setGroups] = useState<{ id: string; name: string }[]>([]);
@@ -41,8 +39,6 @@ const Form = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // const breedRef = useRef<HTMLOptionElement | null>(null);
-
   const fetchGroups = async () => {
     const response = await axios.get(`https://dogapi.dog/api/v2/groups`);
 
@@ -58,7 +54,9 @@ const Form = () => {
     fetchGroups();
   }, []);
 
-  const fetchBreeds = async (id: string) => {
+  const fetchBreeds = async (id: string, event: React.SyntheticEvent) => {
+    event.preventDefault();
+
     const response = await axios.get(`https://dogapi.dog/api/v2/groups/${id}`);
 
     setChosenGroup(response.data.data.attributes.name);
@@ -91,8 +89,6 @@ const Form = () => {
       );
 
       const data = res.data.data;
-
-      // TODO display info nicely
 
       breedsListTemp.push({
         id: data.id,
@@ -161,49 +157,54 @@ const Form = () => {
 
     setDogInfo({ ...currentDog, image: dogImage });
   };
-  console.log(breedsList);
 
   return (
     <>
-      <Card>
-        <FormGroup>
-          <label htmlFor="dogBreed">Dog breed: </label>
+      <div className={styles.card}>
+        <form className={styles.card_form__group}>
+          <label htmlFor="breed group" className={styles.card_form__label}>
+            Breed group:
+          </label>
           {groups.length === 0 && <Spinner />}
           {groups.length > 0 && (
-            <List>
+            <ul className={styles.card_form__list}>
               {groups.map(({ id, name }) => (
-                <ListInlineItem key={id}>
-                  <Button onClick={() => fetchBreeds(id)}>{name}</Button>
-                </ListInlineItem>
-              ))}
-            </List>
-          )}
-        </FormGroup>
-        {isLoading && <Spinner />}
-        {breedsList.length > 0 && (
-          <FormGroup>
-            <FormGroup>
-              <Label for="selectBreed">
-                Select breed from {chosenGroup} group
-              </Label>
-              <Input type="select" id="selectBreed">
-                <option defaultChecked>-</option>
-                {breedsList.map((breed) => (
-                  <option
-                    key={breed.id}
-                    onClick={() => {
-                      setDogInfo({ id: breed.id });
-                    }}
+                <li key={id}>
+                  <Button
+                    type="submit"
+                    onClick={(event) => fetchBreeds(id, event)}
                   >
-                    {breed.name}
-                  </option>
-                ))}
-              </Input>
-              <Button onClick={fetchDog}>Find dog!</Button>
-            </FormGroup>
-          </FormGroup>
+                    {name}
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </form>
+        <Spinner className={styles.spinner} />
+        {isLoading && <Spinner className={styles.spinner} />}
+        {breedsList.length > 0 && (
+          <div>
+            <label htmlFor="selectBreed">
+              Select breed from {chosenGroup} group
+            </label>
+            <select id="selectBreed">
+              <option defaultChecked>-</option>
+              {breedsList.map((breed) => (
+                <option
+                  key={breed.id}
+                  onClick={() => {
+                    setDogInfo({ id: breed.id });
+                  }}
+                >
+                  {breed.name}
+                </option>
+              ))}
+            </select>
+            <Button onClick={fetchDog}>Find dog!</Button>
+          </div>
         )}
-      </Card>
+      </div>
       {dogInfo?.name && (
         <RandomDog
           info={{

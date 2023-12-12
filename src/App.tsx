@@ -17,14 +17,18 @@ function App() {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
-        position: "relative",
+        // height: "100vh",
+        // position: "relative",
+        backgroundImage: `url(${dogsBg})`,
+        backgroundRepeat: "repeat-y",
       }}
     >
       <img
-        src={dogsBg}
-        alt="background of cartoon dogs"
-        className={styles.backgroundImg}
+      // src={dogsBg}
+      // alt="background of cartoon dogs"
+      // width="100%"
+      // height="100%"
+      // className={styles.backgroundImg}
       />
       <div style={{ position: "relative" }}>
         <Main />
