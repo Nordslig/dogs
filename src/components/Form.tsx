@@ -165,7 +165,11 @@ const Form = () => {
           <label htmlFor="breed group" className={styles.card_form__label}>
             Breed group:
           </label>
-          {groups.length === 0 && <Spinner />}
+          {groups.length === 0 && (
+            <div style={{ textAlign: "center" }}>
+              <Spinner className={styles.spinner} />
+            </div>
+          )}
           {groups.length > 0 && (
             <ul className={styles.card_form__list}>
               {groups.map(({ id, name }) => (
@@ -181,12 +185,15 @@ const Form = () => {
             </ul>
           )}
         </form>
-        <Spinner className={styles.spinner} />
-        {isLoading && <Spinner className={styles.spinner} />}
+        {isLoading && (
+          <div style={{ textAlign: "center" }}>
+            <Spinner className={styles.spinner} />
+          </div>
+        )}
         {breedsList.length > 0 && (
           <div>
-            <label htmlFor="selectBreed">
-              Select breed from {chosenGroup} group
+            <label htmlFor="selectBreed" className={styles.card_form__label}>
+              Select breed from {chosenGroup}:
             </label>
             <select id="selectBreed">
               <option defaultChecked>-</option>
