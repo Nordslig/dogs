@@ -191,12 +191,11 @@ const Form = () => {
           </div>
         )}
         {breedsList.length > 0 && (
-          <div>
+          <form className={styles.card_form}>
             <label htmlFor="selectBreed" className={styles.card_form__label}>
-              Select breed from {chosenGroup}:
+              Select from {chosenGroup}:
             </label>
-            <select id="selectBreed">
-              <option defaultChecked>-</option>
+            <select className={styles.card_form__select} id="selectBreed">
               {breedsList.map((breed) => (
                 <option
                   key={breed.id}
@@ -208,8 +207,10 @@ const Form = () => {
                 </option>
               ))}
             </select>
-            <Button onClick={fetchDog}>Find dog!</Button>
-          </div>
+            <Button className={styles.card__btn} onClick={fetchDog}>
+              Find dog!
+            </Button>
+          </form>
         )}
       </div>
       {dogInfo?.name && (
