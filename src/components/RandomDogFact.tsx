@@ -6,7 +6,7 @@ import { Card } from "reactstrap";
 import styles from "./RandomDogFact.module.css";
 
 const RandomDogFact = () => {
-  const [dogFactData, setDogFactData] = useState<string | undefined>("");
+  const [dogFact, setDogFact] = useState<string | undefined>("");
 
   const [cookies, setCookie] = useCookies(["dogFact"]);
 
@@ -28,17 +28,18 @@ const RandomDogFact = () => {
         maxAge: timeToNextDay,
         sameSite: "strict",
       });
-      setDogFactData(res.data.data[0].attributes.body);
+      setDogFact(res.data.data[0].attributes.body);
     };
-    if (cookies.dogFact) return setDogFactData(cookies.dogFact);
+    if (cookies.dogFact) return setDogFact(cookies.dogFact);
     newFact();
   }, [setCookie, timeToNextDay, cookies]);
 
   return (
-    <Card style={{ marginTop: ".3rem" }}>
-      <h3>Your fact of the day:</h3>
-      <p>{dogFactData}</p>
-    </Card>
+    <div className={styles.card}>
+      <h3 className={styles.card__title}>Fact of the day:</h3>
+      <div className={styles.card__line}></div>
+      <p className={styles.card__dogFact}>{dogFact}</p>
+    </div>
   );
 };
 
