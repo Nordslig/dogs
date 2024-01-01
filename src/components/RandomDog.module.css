@@ -1,0 +1,52 @@
+.card {
+  width: 80%;
+  margin: 2% auto;
+  padding: 0.5rem;
+  background-color: #272727;
+  color: #fbecec;
+  border-radius: 0.3rem;
+}
+
+.info p {
+  margin: 0.6rem auto;
+  padding: 0.3rem;
+  width: 90%;
+  text-align: justify;
+  font-size: 1.1rem;
+}
+
+.info h2 {
+  max-width: max-content;
+  display: block;
+  margin: 4% auto;
+  padding: 0.4rem 0.6rem;
+  text-align: center;
+  background-color: #fbecec;
+  color: #272727;
+}
+
+.info_stats {
+  margin: 1rem auto;
+  border-top: 3px solid #fbecec;
+}
+
+.info_stats > p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dogImage {
+  width: 100%;
+  height: auto;
+}
+
+.absentDogImage {
+  margin: 1rem auto 0;
+  border-top: 3px solid #fbecec;
+}
+
+.absentDogImage a {
+  color: #fbecec;
+  font-weight: bold;
+}

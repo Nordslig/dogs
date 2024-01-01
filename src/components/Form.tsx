@@ -186,10 +186,19 @@ const Form = () => {
           )}
         </form>
         {isLoading && (
-          <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: "90%",
+              borderRadius: "1.5rem",
+              margin: "1rem auto",
+              textAlign: "center",
+              backgroundColor: "#272727",
+            }}
+          >
             <Spinner className={styles.spinner} />
           </div>
         )}
+
         {breedsList.length > 0 && (
           <form className={styles.card_form}>
             <label htmlFor="selectBreed" className={styles.card_form__label}>

@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader } from "reactstrap";
+import styles from "./RandomDog.module.css";
 
 interface RandomDogProps {
   info: {
@@ -15,37 +15,45 @@ const RandomDog = ({ info }: RandomDogProps) => {
   const { name, description, mWeight, fWeight, life, image } = info;
 
   return (
-    <Card>
-      <CardHeader>Found dog:</CardHeader>
-      <CardBody>
+    <div className={styles.card}>
+      <div className={styles.info}>
         <h2>{name}</h2>
         <p>{description}</p>
-        <Card>
-          <CardHeader>Info:</CardHeader>
-          <CardBody>
-            <div>
-              <h3>Average length of life: {life}</h3>
-              <h3>Weight:</h3>
-              <p>Male: {mWeight} kg</p>
-              <p>Female: {fWeight} kg</p>
-            </div>
-          </CardBody>
-        </Card>
-        {image && <img src={image} />}
-        {!image && (
+        <div className={styles.info_stats}>
           <p>
-            Sorry, there aren't any pictures of {name}. If you own one, you can
-            send image{" "}
-            <a
-              target="_blank"
-              href="https://github.com/jigsawpieces/dog-api-images#dog-api-images"
-            >
-              here
-            </a>{" "}
+            Average length of life: <span>{life}</span>
           </p>
+          <p>
+            Male weight: <span>{mWeight} kg</span>
+          </p>
+          <p>
+            Female weight: <span>{fWeight} kg</span>{" "}
+          </p>
+        </div>
+        {image && (
+          <img
+            src={image}
+            alt={`${name} dog breed`}
+            className={styles.dogImage}
+          />
         )}
-      </CardBody>
-    </Card>
+        {!image && (
+          <div className={styles.absentDogImage}>
+            <p>
+              There are not any pictures of {name}. If you own one, you can send
+              image{" "}
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://github.com/jigsawpieces/dog-api-images#dog-api-images"
+              >
+                here
+              </a>{" "}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,32 @@
+.footer {
+  background-color: #272727;
+  color: #fbecec;
+}
+
+.footer_title {
+  display: inline-block;
+  margin: 0.8rem 1rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #fbecec;
+}
+
+.footer_list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0.4rem 0 0.4rem 2rem;
+  list-style: square;
+}
+
+.footer_list__item {
+  margin: 0.2rem 0;
+}
+
+.footer_list__item a {
+  color: #fbecec;
+  font-weight: bold;
+}
+
+/* @media only screen and (min-witdh: 640px) {
+} */
