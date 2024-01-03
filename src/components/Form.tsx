@@ -1,15 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Card,
-  FormGroup,
-  Input,
-  Label,
-  List,
-  ListInlineItem,
-  Spinner,
-} from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Spinner } from "reactstrap";
 import RandomDog from "./RandomDog";
 
 import styles from "./Form.module.css";
@@ -17,6 +8,8 @@ import styles from "./Form.module.css";
 const Form = () => {
   const [groups, setGroups] = useState<{ id: string; name: string }[]>([]);
   const [chosenGroup, setChosenGroup] = useState<string | null>(null);
+
+  const [isChosen, setIsChosen] = useState<boolean>(true);
 
   const [breedsList, setBreedsList] = useState<
     {
@@ -127,7 +120,8 @@ const Form = () => {
   const fetchDog = async () => {
     const currentDog = breedsList.find((breed) => breed.id === dogInfo?.id);
 
-    if (!currentDog) return console.log("Something is wrong...");
+    // if (!currentDog) return console.log("a");
+    if (!currentDog) return setIsChosen(false);
 
     const names = currentDog.name.trim().split(/\s+/);
 
@@ -166,7 +160,15 @@ const Form = () => {
             Breed group:
           </label>
           {groups.length === 0 && (
-            <div style={{ textAlign: "center" }}>
+            <div
+              style={{
+                width: "90%",
+                borderRadius: "1.5rem",
+                margin: "1rem auto",
+                textAlign: "center",
+                backgroundColor: "#272727",
+              }}
+            >
               <Spinner className={styles.spinner} />
             </div>
           )}
@@ -198,17 +200,26 @@ const Form = () => {
             <Spinner className={styles.spinner} />
           </div>
         )}
-
         {breedsList.length > 0 && (
           <form className={styles.card_form}>
             <label htmlFor="selectBreed" className={styles.card_form__label}>
               Select from {chosenGroup}:
             </label>
             <select className={styles.card_form__select} id="selectBreed">
+              <option
+                defaultChecked
+                onClick={() => {
+                  setIsChosen(false);
+                  setDogInfo(null);
+                }}
+              >
+                -
+              </option>
               {breedsList.map((breed) => (
                 <option
                   key={breed.id}
                   onClick={() => {
+                    setIsChosen(true);
                     setDogInfo({ id: breed.id });
                   }}
                 >
@@ -221,6 +232,7 @@ const Form = () => {
             </Button>
           </form>
         )}
+        {!isChosen && <p className={styles.error}>Select dog breed.</p>}
       </div>
       {dogInfo?.name && (
         <RandomDog

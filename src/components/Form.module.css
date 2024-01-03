@@ -48,7 +48,18 @@
 .card__btn {
   padding: 0.3rem 0.7rem;
   margin-top: 0.7rem !important;
-  /* background-color: #272727;  */
   font-size: 1.2rem;
   text-transform: uppercase;
+}
+
+.error {
+  background-color: #272727;
+  width: max-content;
+  margin: 0.8rem auto;
+  padding: 0.4rem 1rem;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 0.4rem;
 }
