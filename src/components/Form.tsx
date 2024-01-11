@@ -201,7 +201,7 @@ const Form = () => {
           </div>
         )}
         {breedsList.length > 0 && (
-          <form className={styles.card_form}>
+          <form className={styles.card_form__breed}>
             <label htmlFor="selectBreed" className={styles.card_form__label}>
               Select from {chosenGroup}:
             </label>

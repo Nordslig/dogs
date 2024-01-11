@@ -1,4 +1,3 @@
-import { Card, CardBody, CardHeader, List, ListInlineItem } from "reactstrap";
 import styles from "./Info.module.css";
 
 const Info = () => {

@@ -7,6 +7,11 @@
   padding: 0 0;
 }
 
+.card_form__breed {
+  margin: 0 auto;
+  padding: 0 0;
+}
+
 .card_form__label {
   margin: 0.3rem 0;
   padding: 0.3rem 0.6rem;
@@ -62,4 +67,22 @@
   font-weight: bold;
   font-size: 1.1rem;
   border-radius: 0.4rem;
+}
+
+@media (max-width: 640px) and (orientation: landscape) {
+  .card_form__breed {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .card_form__breed .card_form__select {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .card_form__breed .card__btn {
+    align-self: flex-end;
+  }
 }
