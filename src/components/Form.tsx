@@ -160,15 +160,7 @@ const Form = () => {
             Breed group:
           </label>
           {groups.length === 0 && (
-            <div
-              style={{
-                width: "90%",
-                borderRadius: "1.5rem",
-                margin: "1rem auto",
-                textAlign: "center",
-                backgroundColor: "#272727",
-              }}
-            >
+            <div className={styles.spinner_container}>
               <Spinner className={styles.spinner} />
             </div>
           )}
@@ -187,16 +179,11 @@ const Form = () => {
             </ul>
           )}
         </form>
+        <div className={styles.spinner_container}>
+          <Spinner className={styles.spinner} />
+        </div>
         {isLoading && (
-          <div
-            style={{
-              width: "90%",
-              borderRadius: "1.5rem",
-              margin: "1rem auto",
-              textAlign: "center",
-              backgroundColor: "#272727",
-            }}
-          >
+          <div className={styles.spinner_container}>
             <Spinner className={styles.spinner} />
           </div>
         )}
