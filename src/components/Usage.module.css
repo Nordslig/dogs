@@ -14,3 +14,11 @@
   padding: 0.2rem 0;
   text-decoration: underline;
 }
+
+@media (min-width: 768px) {
+  .usage {
+    width: 70%;
+    margin: 0 auto;
+    font-size: 1.1rem;
+  }
+}
