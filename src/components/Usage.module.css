@@ -22,3 +22,11 @@
     font-size: 1.1rem;
   }
 }
+
+@media (min-width: 1024px) {
+  .usage {
+    margin: 3% auto;
+    padding: 0.7rem;
+    font-size: 1.2rem;
+  }
+}

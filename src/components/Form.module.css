@@ -62,7 +62,7 @@
   color: #fbecec;
 }
 
-.card__btn {
+.btn {
   padding: 0.3rem 0.7rem;
   margin-top: 0.7rem !important;
   align-self: flex-end;
@@ -96,5 +96,30 @@
 @media (min-width: 768px) {
   .spinner_container {
     width: 35%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    padding: 0.4rem;
+    font-size: 1.1rem;
+  }
+
+  .card_form__label {
+    font-size: 1.6rem;
+  }
+  .card_form__select {
+    font-size: 1.2rem;
+    align-self: center;
+  }
+
+  .error {
+    font-size: 1.3rem;
   }
 }

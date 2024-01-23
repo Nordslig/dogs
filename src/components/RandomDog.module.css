@@ -50,3 +50,14 @@
   color: #fbecec;
   font-weight: bold;
 }
+
+@media (min-width: 1024px) {
+  .info h2 {
+    margin: 2% auto;
+    font-size: 2rem;
+  }
+
+  .info p {
+    font-size: 1.3rem;
+  }
+}

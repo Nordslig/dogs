@@ -31,3 +31,9 @@
     margin: 0.7rem auto;
   }
 }
+
+@media (min-width: 1024px) {
+  .header {
+    margin: 3% auto;
+  }
+}

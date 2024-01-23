@@ -120,7 +120,6 @@ const Form = () => {
   const fetchDog = async () => {
     const currentDog = breedsList.find((breed) => breed.id === dogInfo?.id);
 
-    // if (!currentDog) return console.log("a");
     if (!currentDog) return setIsChosen(false);
 
     const names = currentDog.name.trim().split(/\s+/);
@@ -169,6 +168,7 @@ const Form = () => {
               {groups.map(({ id, name }) => (
                 <li key={id}>
                   <Button
+                    className={styles.btn}
                     type="submit"
                     onClick={(event) => fetchBreeds(id, event)}
                   >
@@ -214,7 +214,7 @@ const Form = () => {
                 </option>
               ))}
             </select>
-            <Button className={styles.card__btn} onClick={fetchDog}>
+            <Button className={styles.btn} onClick={fetchDog}>
               Find dog!
             </Button>
           </form>
