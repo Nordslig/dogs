@@ -14,20 +14,28 @@ function App() {
       style={{
         display: "flex",
         flexDirection: "column",
-        // height: "100vh",
+        justifyContent: "space-between",
+        height: "100vh",
         // position: "relative",
         backgroundImage: `url(${dogsBg})`,
         backgroundRepeat: "repeat-y",
       }}
     >
-      <img
+      {/* <img
       // src={dogsBg}
       // alt="background of cartoon dogs"
       // width="100%"
       // height="100%"
       // className={styles.backgroundImg}
-      />
-      <div style={{ position: "relative" }}>
+    /> */}
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <Main />
         <Form />
       </div>

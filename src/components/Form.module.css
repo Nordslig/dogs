@@ -106,9 +106,9 @@
     margin-right: auto;
   }
 
-  .btn {
+  .form .btn {
     padding: 0.4rem;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
   }
 
   .card_form__label {
@@ -121,5 +121,11 @@
 
   .error {
     font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .card {
+    width: 65%;
   }
 }

@@ -60,4 +60,28 @@
   .info p {
     font-size: 1.3rem;
   }
+
+  .dogImage {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    padding: 0.3rem 0 0.8rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card .info {
+    width: 60%;
+  }
+
+  .dogImage {
+    width: 80%;
+    padding: 0.6rem;
+  }
 }

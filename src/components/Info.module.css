@@ -28,5 +28,12 @@
   font-weight: bold;
 }
 
-/* @media only screen and (min-witdh: 640px) {
-} */
+@media (min-width: 1280px) {
+  .footer_title {
+    font-size: 1.3rem;
+  }
+
+  .footer_list {
+    font-size: 1.05rem;
+  }
+}

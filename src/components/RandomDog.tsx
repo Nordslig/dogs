@@ -30,11 +30,13 @@ const RandomDog = ({ info }: RandomDogProps) => {
             Female weight: <span>{fWeight} kg</span>{" "}
           </p>
         </div>
+      </div>
+      <div>
         {image && (
           <img
             src={image}
-            alt={`${name} dog breed`}
             className={styles.dogImage}
+            alt={`${name} dog breed`}
           />
         )}
         {!image && (
