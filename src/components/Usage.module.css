@@ -30,3 +30,9 @@
     font-size: 1.25rem;
   }
 }
+
+@media (min-width: 1600px) {
+  .usage {
+    width: 40%;
+  }
+}

@@ -50,3 +50,9 @@
     font-size: 1.4rem;
   }
 }
+
+@media (min-width: 1600px) {
+  .header {
+    width: 50%;
+  }
+}

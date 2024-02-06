@@ -37,3 +37,15 @@
     font-size: 1.05rem;
   }
 }
+
+@media (min-width: 1600px) {
+  .footer_title {
+    margin: 0.4rem 1rem;
+  }
+
+  .footer_list {
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 0;
+  }
+}

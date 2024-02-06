@@ -38,3 +38,9 @@
     font-size: 1.3rem;
   }
 }
+
+@media (min-width: 1600px) {
+  .card {
+    width: 50%;
+  }
+}

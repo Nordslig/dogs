@@ -31,30 +31,28 @@ const RandomDog = ({ info }: RandomDogProps) => {
           </p>
         </div>
       </div>
-      <div>
-        {image && (
-          <img
-            src={image}
-            className={styles.dogImage}
-            alt={`${name} dog breed`}
-          />
-        )}
-        {!image && (
-          <div className={styles.absentDogImage}>
-            <p>
-              There are not any pictures of {name}. If you own one, you can send
-              image{" "}
-              <a
-                rel="noreferrer"
-                target="_blank"
-                href="https://github.com/jigsawpieces/dog-api-images#dog-api-images"
-              >
-                here
-              </a>{" "}
-            </p>
-          </div>
-        )}
-      </div>
+      {image && (
+        <img
+          src={image}
+          className={styles.dogImage}
+          alt={`${name} dog breed`}
+        />
+      )}
+      {!image && (
+        <div className={styles.absentDogImage}>
+          <p>
+            There are not any pictures of {name}. If you own one, you can send
+            image{" "}
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://github.com/jigsawpieces/dog-api-images#dog-api-images"
+            >
+              here
+            </a>{" "}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
