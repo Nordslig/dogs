@@ -1,19 +1,21 @@
 import styles from "./Button.module.css";
 
 interface ButtonProps {
-  type: "button" | "reset" | "submit";
   className?: string;
-  onClick: () => {};
+  onClick?: (event: React.SyntheticEvent) => {};
   children?: React.ReactNode;
+  type?: "button" | "reset" | "submit";
 }
 
-const Button = ({ type, className, onClick }: ButtonProps) => {
+const Button = ({ type, className, onClick, children }: ButtonProps) => {
   return (
     <button
       className={`${styles.button} ${className}`}
       onClick={onClick}
-      type={"button" || type}
-    ></button>
+      type={type || "button"}
+    >
+      {children}
+    </button>
   );
 };
 

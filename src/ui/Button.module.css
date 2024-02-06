@@ -1,2 +1,13 @@
 .button {
+  background-color: #272727;
+  color: #fbecec;
+  border: none;
+  border-radius: 0.3rem;
+  text-decoration: underline;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background-color: #fbecec;
+  color: #272727;
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Spinner } from "reactstrap";
+import { Spinner } from "reactstrap";
 import RandomDog from "./RandomDog";
+import Button from "../ui/Button";
 
 import styles from "./Form.module.css";
 
@@ -179,9 +180,6 @@ const Form = () => {
             </ul>
           )}
         </form>
-        <div className={styles.spinner_container}>
-          <Spinner className={styles.spinner} />
-        </div>
         {isLoading && (
           <div className={styles.spinner_container}>
             <Spinner className={styles.spinner} />
@@ -214,7 +212,7 @@ const Form = () => {
                 </option>
               ))}
             </select>
-            <Button className={styles.btn} onClick={fetchDog}>
+            <Button className={styles.btn} onClick={fetchDog} type="submit">
               Find dog!
             </Button>
           </form>
