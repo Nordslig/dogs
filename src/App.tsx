@@ -1,7 +1,3 @@
-// * dogs api:
-// * pics = https://dog.ceo/dog-api/documentation/
-// * facts = https://dogapi.dog/docs/api-v2
-
 import dogsBg from "./assets/dogsBg.jpg";
 import Main from "./components/Main";
 import Info from "./components/Info";
@@ -12,35 +8,37 @@ function App() {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        height: "100vh",
-        // position: "relative",
+        minHeight: "100vh",
         backgroundImage: `url(${dogsBg})`,
-        backgroundRepeat: "repeat-y",
+        backgroundRepeat: "repeat",
       }}
     >
-      {/* <img
-      // src={dogsBg}
-      // alt="background of cartoon dogs"
-      // width="100%"
-      // height="100%"
-      // className={styles.backgroundImg}
-    /> */}
       <div
         style={{
-          position: "relative",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          position: "relative",
+          top: 0,
+          left: 0,
+          minHeight: "100vh",
+          backgroundColor: "rgba(255,255,255, .3)",
         }}
       >
-        <Main />
-        <Form />
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <Main />
+          <Form />
+        </div>
+        <RandomDogFact />
+        <Info />
       </div>
-      <RandomDogFact />
-      <Info />
     </div>
   );
 }
