@@ -8,7 +8,7 @@ const Header = () => {
         <h2>We love them, we care about them</h2>
         <em>
           Unless you are cat lover. You can leave, and you are forgiven for your
-          lack of taste. (Just kidding)
+          lack of taste.
         </em>
       </div>
       <p>

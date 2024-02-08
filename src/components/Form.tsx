@@ -118,7 +118,9 @@ const Form = () => {
     setBreedsList(breedsListTemp);
   };
 
-  const fetchDog = async () => {
+  const fetchDog = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+
     const currentDog = breedsList.find((breed) => breed.id === dogInfo?.id);
 
     if (!currentDog) return setIsChosen(false);
